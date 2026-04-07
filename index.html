@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Orientação para QA's</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        primary: { 50: '#eef2ff', 100: '#e0e7ff', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca' },
+                        slate: { 800: '#1e293b', 900: '#0f172a' }
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
+        
+        .fade-in { animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Menu Transition */
+        .submenu { transition: max-height 0.3s ease-in-out; max-height: 0; overflow: hidden; }
+        .submenu.open { max-height: 600px; }
+
+        /* Badges Animation */
+        .badge-pointer {
+            animation: pulse-ring 2s infinite;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.6); }
+            70% { box-shadow: 0 0 0 8px rgba(79, 70, 229, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-gray-100 h-screen flex overflow-hidden transition-colors duration-300 selection:bg-primary-500 selection:text-white">
+
+    <aside class="w-72 bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700 flex flex-col z-20 transition-colors duration-300 h-full flex-shrink-0">
+        
+        <div class="p-6 border-b border-gray-200 dark:border-slate-700 shrink-0 cursor-pointer" onclick="wiki.showSection('home')">
+            <h1 class="text-lg font-bold tracking-tight text-gray-900 dark:text-white flex items-center gap-3">
+                <div class="p-2 bg-primary-100 dark:bg-primary-500/10 rounded-lg text-primary-600 dark:text-primary-400">
+                    <i data-lucide="book-open"></i>
+                </div>
+                <div class="leading-tight">Guia de orientação<br><span class="text-primary-600 dark:text-primary-400">para QA's</span></div>
+            </h1>
+        </div>
+
+        <nav class="flex-1 px-4 py-4 space-y-2 overflow-y-auto custom-scrollbar">
+            
+            <button onclick="wiki.showSection('home')" class="nav-btn group w-full flex items-center justify-between px-4 py-2.5 text-sm font-bold rounded-xl transition-all text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-slate-700/50" data-target="home">
+                <span class="flex items-center gap-3"><i data-lucide="home" size="18"></i> Início</span>
+            </button>
+
+            <div class="pt-2">
+                <button onclick="wiki.toggleMenu('menu-testes')" class="w-full flex items-center justify-between px-4 py-2.5 text-sm font-bold rounded-xl transition-all text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700/50">
+                    <span class="flex items-center gap-3"><i data-lucide="check-square" size="18" class="text-emerald-500"></i> Orientação testes</span>
+                    <i data-lucide="chevron-down" size="16" class="transition-transform transform" id="icon-menu-testes"></i>
+                </button>
+                <div id="menu-testes" class="submenu pl-11 pr-2 mt-1 space-y-1">
+                    <button onclick="wiki.showSection('testes-intro')" class="nav-btn w-full text-left py-2 text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors" data-target="testes-intro">Visão Geral</button>
+                    <button onclick="wiki.showSection('testes-sweeping')" class="nav-btn w-full text-left py-2 text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors" data-target="testes-sweeping">Sweeping Payments</button>
+                    <button onclick="wiki.showSection('testes-agendamentos')" class="nav-btn w-full text-left py-2 text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors" data-target="testes-agendamentos">Longa Duração (Agendamentos)</button>
+                    <button onclick="wiki.showSection('testes-jsr')" class="nav-btn w-full text-left py-2 text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors" data-target="testes-jsr">JSR e No Redirect</button>
+                </div>
+            </div>
+
+            <div class="pt-2">
+                <button onclick="wiki.toggleMenu('menu-ferramentas')" class="w-full flex items-center justify-between px-4 py-2.5 text-sm font-bold rounded-xl transition-all text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700/50">
+                    <span class="flex items-center gap-3"><i data-lucide="wrench" size="18" class="text-blue-500"></i> Ferramentas</span>
+                    <i data-lucide="chevron-down" size="16" class="transition-transform transform" id="icon-menu-ferramentas"></i>
+                </button>
+                <div id="menu-ferramentas" class="submenu pl-11 pr-2 mt-1 space-y-1">
+                    <button onclick="wiki.showSection('ferramentas-intro')" class="nav-btn w-full text-left py-2 text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors" data-target="ferramentas-intro">Visão Geral</button>
+                    <button onclick="wiki.showSection('ferramentas-nomenclatura')" class="nav-btn w-full text-left py-2 text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors" data-target="ferramentas-nomenclatura">Nomenclatura</button>
+                    <button onclick="wiki.showSection('ferramentas-agendamento')" class="nav-btn w-full text-left py-2 text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors" data-target="ferramentas-agendamento">Agendamento</button>
+                    <button onclick="wiki.showSection('ferramentas-relatorio')" class="nav-btn w-full text-left py-2 text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors" data-target="ferramentas-relatorio">Relatórios</button>
+                    <button onclick="wiki.showSection('ferramentas-chicago')" class="nav-btn w-full text-left py-2 text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors" data-target="ferramentas-chicago">Gerador de JSON</button>
+                </div>
+            </div>
+
+        </nav>
+
+        <div class="p-6 border-t border-gray-200 dark:border-slate-700 shrink-0">
+            <button onclick="document.documentElement.classList.toggle('dark')" class="flex items-center justify-between w-full px-4 py-3 text-sm font-medium text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-slate-700/50 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-all">
+                <span class="flex items-center gap-2"><i data-lucide="moon" size="18"></i> Alterar Tema</span>
+            </button>
+        </div>
+    </aside>
+
+    <main class="flex-1 overflow-y-auto bg-gray-50 dark:bg-[#0b1120] relative custom-scrollbar">
+        <div class="max-w-[95rem] mx-auto px-10 py-14 pb-32">
+            
+            <article id="home" class="content-section fade-in">
+                <div class="max-w-4xl bg-white dark:bg-slate-800 rounded-2xl p-10 border border-gray-200 dark:border-slate-700 shadow-sm mb-12">
+                    <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4">Boas-vindas ao Guia de Orientação para QA's!</h1>
+                    <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                        Nesta wiki, separamos os testes por classificação para facilitar a sua consulta. Utilize o menu lateral para navegar entre as regras de execução de cada jornada ou para entender o funcionamento detalhado das nossas ferramentas de automação.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl">
+                    <div onclick="wiki.showSection('testes-intro'); wiki.toggleMenu('menu-testes');" class="group bg-white dark:bg-slate-800 p-8 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-emerald-500 dark:hover:border-emerald-500 transition-all cursor-pointer">
+                        <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                            <i data-lucide="check-square" size="28"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Orientação testes</h3>
+                        <p class="text-base text-gray-600 dark:text-gray-400">
+                            Consulte aqui sobre o que o usuário irá encontrar em cada teste. Aprenda como executá-los de acordo com as regras exatas do documento para as esteiras JSR, Longa Duração e Sweeping.
+                        </p>
+                    </div>
+
+                    <div onclick="wiki.showSection('ferramentas-intro'); wiki.toggleMenu('menu-ferramentas');" class="group bg-white dark:bg-slate-800 p-8 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-blue-500 dark:hover:border-blue-500 transition-all cursor-pointer">
+                        <div class="w-14 h-14 bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                            <i data-lucide="wrench" size="28"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Ferramentas</h3>
+                        <p class="text-base text-gray-600 dark:text-gray-400">
+                            Entenda o que é nossa ferramenta e como utilizar os submódulos: nomenclatura, agendamento, relatório e gerador de json. Tudo ilustrado com layouts iterativos para fácil compreensão.
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <article id="testes-intro" class="content-section hidden fade-in max-w-4xl">
+                <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-6">Orientação testes</h1>
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-gray-200 dark:border-slate-700 shadow-sm text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                    <p>
+                        Neste menu, você encontrará as orientações completas de como executar os testes de acordo com as regras documentadas. 
+                    </p>
+                    <p class="mt-4">
+                        Se o usuário clicar sobre um teste no submenu lateral (Exemplo: JSR), ele é direcionado para as orientações específicas daquele cenário, visualizando o nome do teste e o fluxo exato de execução.
+                    </p>
+                </div>
+            </article>
+
+            <article id="testes-sweeping" class="content-section hidden fade-in max-w-4xl">
+                <div class="flex items-center gap-3 mb-6 text-gray-500 dark:text-gray-400 text-sm font-medium">
+                    <i data-lucide="check-square" size="16"></i> Orientação testes <i data-lucide="chevron-right" size="14"></i> <span class="text-primary-600 dark:text-primary-400">Sweeping Payments</span>
+                </div>
+                
+                <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-8 border-b border-gray-200 dark:border-slate-700 pb-4">
+                    Teste: Production Funcional Tests For Automatic Sweeping Payments
+                </h1>
+                
+                <div class="space-y-8 text-gray-800 dark:text-gray-200">
+                    <section>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Visão Geral</h2>
+                        <p class="leading-relaxed bg-white dark:bg-slate-800 p-5 rounded-xl border border-gray-200 dark:border-slate-700">
+                            O teste de Sweeping Accounts valida a transferência automática de saldos entre contas. O sucesso da execução depende da utilização dos dados bancários da conta principal vinculada ao perfil (PF ou PJ).
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Regras de Identificação</h2>
+                        <p class="mb-3">O sistema utiliza as chaves principais para a correlação dos dados:</p>
+                        <ul class="list-disc list-inside space-y-2 ml-4">
+                            <li><strong>Perfil PF:</strong> Chave PIX (CPF).</li>
+                            <li><strong>Perfil PJ:</strong> CNPJ.</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Fluxo de Execução</h2>
+                        <p class="mb-4">A configuração deste teste é automatizada pelo Gestor de Serviços:</p>
+                        <ul class="space-y-4 ml-2">
+                            <li class="flex gap-4 items-start">
+                                <div class="w-2 h-2 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                                <div><strong>Configuração Prévia:</strong> Certifique-se de que os dados bancários estão preenchidos e salvos no campo "Configurações de Dados".</div>
+                            </li>
+                            <li class="flex gap-4 items-start">
+                                <div class="w-2 h-2 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                                <div><strong>Seleção do Teste:</strong> Selecione o Segmento (PF ou PJ). Ao selecionar "Sweeping Accounts" no Tipo de Teste (Payload), o formulário será alimentado automaticamente com as informações salvas.</div>
+                            </li>
+                            <li class="flex gap-4 items-start">
+                                <div class="w-2 h-2 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                                <div><strong>Validação:</strong> Revise se os dados refletidos correspondem à conta vinculada ao CPF/CNPJ antes de iniciar o processo.</div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <div class="bg-yellow-50 dark:bg-yellow-900/30 border-l-4 border-yellow-500 p-6 rounded-r-xl flex gap-4 mt-8">
+                        <div>
+                            <p class="text-yellow-800 dark:text-yellow-300 font-medium">⚠️ <strong>Atenção QA:</strong> A divergência entre a conta configurada e a conta vinculada ao documento (CPF/CNPJ) causará erro imediato na execução. Confirme os dados nas "Configurações de Dados" antes de disparar o teste.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article id="testes-agendamentos" class="content-section hidden fade-in max-w-4xl">
+                <div class="flex items-center gap-3 mb-6 text-gray-500 dark:text-gray-400 text-sm font-medium">
+                    <i data-lucide="check-square" size="16"></i> Orientação testes <i data-lucide="chevron-right" size="14"></i> <span class="text-primary-600 dark:text-primary-400">Longa Duração</span>
+                </div>
+                
+                <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-6 border-b border-gray-200 dark:border-slate-700 pb-4">
+                    Testes FVP de Longa Duração (Agendamentos)
+                </h1>
+                
+                <div class="space-y-8 text-gray-800 dark:text-gray-200">
+                    <section>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Visão Geral</h2>
+                        <p class="leading-relaxed bg-white dark:bg-slate-800 p-5 rounded-xl border border-gray-200 dark:border-slate-700">
+                            Pertencem à camada FVP e são gerenciados no módulo de Agendamentos. Exigem acompanhamento diário do QA, com regras estritas de saldo em conta para garantir a validação de fluxos que ocorrem ao longo de vários dias.
+                        </p>
+                    </section>
+
+                    <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="border border-gray-200 dark:border-slate-700 rounded-2xl p-6 bg-white dark:bg-slate-800 shadow-sm">
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">1. Pix Scheduling 1-2</h3>
+                            <ul class="space-y-3 text-sm">
+                                <li><strong>Objetivo:</strong> Validação de agendamento de pagamentos.</li>
+                                <li><strong>Duração:</strong> 2 dias (Encerra no D+2).</li>
+                                <li><strong>Requisito de Saldo:</strong> Mínimo de R$ 5,00 em conta no início do teste.</li>
+                            </ul>
+                            <div class="mt-5 bg-gray-50 dark:bg-slate-900 p-4 rounded-lg border border-gray-100 dark:border-slate-700">
+                                <strong class="block mb-2 text-sm text-gray-900 dark:text-white">Cronograma de Execução (Saldos):</strong>
+                                <ul class="text-sm space-y-1 ml-4 list-disc text-gray-600 dark:text-gray-400 font-mono">
+                                    <li>D+0: Saldo R$ 2,00</li>
+                                    <li>D+1: Saldo R$ 2,00</li>
+                                    <li>D+2: Saldo R$ 1,00</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="border border-gray-200 dark:border-slate-700 rounded-2xl p-6 bg-white dark:bg-slate-800 shadow-sm">
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">2. Pix Retry 1-3</h3>
+                            <ul class="space-y-3 text-sm">
+                                <li><strong>Objetivo:</strong> Validação da esteira de retentativa de pagamentos (falha por falta de saldo seguida de sucesso).</li>
+                                <li><strong>Duração:</strong> 3 dias (Encerra no D+3).</li>
+                                <li><strong>Requisito de Saldo:</strong> Obrigatoriamente R$ 0,00 (Bloqueio total de pagamentos).</li>
+                            </ul>
+                            <div class="mt-5 bg-gray-50 dark:bg-slate-900 p-4 rounded-lg border border-gray-100 dark:border-slate-700">
+                                <strong class="block mb-2 text-sm text-gray-900 dark:text-white">Cronograma de Execução:</strong>
+                                <ul class="text-sm space-y-1 ml-4 list-disc text-gray-600 dark:text-gray-400 font-mono">
+                                    <li>D+0 a D+2: Saldo R$ 0,00 mantido.</li>
+                                    <li>D+3 (Finalização): Pagar o valor de R$ 1,00.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Principais Automações</h2>
+                        <ul class="space-y-4 ml-2">
+                            <li class="flex gap-4 items-start">
+                                <div class="w-2 h-2 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                                <div><strong>Sincronização Automática (Gatilho de Sucesso):</strong> O sistema está interligado com a aba de "Gerador de Nomenclatura". Quando um teste de longa duração (ex: Pix Retry 1-3 ou Pix Scheduling 1-2) é registrado com o status "OK", os dados referentes à Marca, Segmento, Tipo de Teste e Data são automaticamente transportados para o formulário de Agendamento.</div>
+                            </li>
+                            <li class="flex gap-4 items-start">
+                                <div class="w-2 h-2 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                                <div><strong>Cálculo Inteligente de Prazos:</strong> Ao selecionar o tipo de teste e a data de início, o sistema calcula autonomamente a data de fim da jornada. A lógica define que testes com a palavra "Retry" duram 3 dias (D+3), enquanto o Pix Scheduling dura 2 dias (D+2).</div>
+                            </li>
+                            <li class="flex gap-4 items-start">
+                                <div class="w-2 h-2 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                                <div><strong>Geração de Cronograma Detalhado:</strong> Em conjunto com o cálculo de datas, a ferramenta redige automaticamente um bloco de texto com as instruções precisas para cada dia do teste.</div>
+                            </li>
+                            <li class="flex gap-4 items-start">
+                                <div class="w-2 h-2 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                                <div><strong>Integração com Calendário:</strong> Existe um botão dedicado para o Google Calendar que, uma vez calculado o prazo, abre a agenda do Google e pré-preenche um evento com o título do teste, as datas de início e fim, e o cronograma detalhado na descrição.</div>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+            </article>
+
+            <article id="testes-jsr" class="content-section hidden fade-in max-w-4xl">
+                <div class="flex items-center gap-3 mb-6 text-gray-500 dark:text-gray-400 text-sm font-medium">
+                    <i data-lucide="check-square" size="16"></i> Orientação testes <i data-lucide="chevron-right" size="14"></i> <span class="text-primary-600 dark:text-primary-400">JSR e No Redirect</span>
+                </div>
+                
+                <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-6 border-b border-gray-200 dark:border-slate-700 pb-4">
+                    Testes JSR e No Redirect (API Version 2.2)
+                </h1>
+
+                <div class="space-y-6 text-gray-800 dark:text-gray-200">
+                    
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm">
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">1. JSR Pix Verification 1-2</h3>
+                        <ul class="space-y-2 text-sm ml-2">
+                            <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Camada:</strong> Testes FVP (Módulo de Agendamentos).</li>
+                            <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Duração:</strong> 2 dias (Encerra no D+2).</li>
+                            <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Regras de Saldo:</strong> Exige saldo mínimo de R$ 2,00 por teste. É obrigatório conferir se o valor foi debitado após a execução e repor o saldo mínimo antes de seguir para os próximos testes da esteira.</li>
+                            <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Configuração Mobile:</strong> Prazo de Consentimento Indeterminado, Valor Máximo Diário de R$ 1,00 e Valor Máximo por Transação de R$ 1,00.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm">
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">2. Production Funcional Tests For No Redirect Automatic Pix Payments</h3>
+                        <ul class="space-y-2 text-sm ml-2">
+                            <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Camada:</strong> Testes API (Gerador JSON Chicago).</li>
+                            <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Duração:</strong> Execução imediata (Geração de Payload).</li>
+                            <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Regras de Saldo e Mobile:</strong> Segue a mesma exigência da família JSR (Reposição de saldo de R$ 2,00 e limites do App configurados para R$ 1,00 com prazo Indeterminado).</li>
+                            <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Preenchimento e Automação:</strong> CPF é obrigatório para fluxos PF; CNPJ é obrigatório para fluxos PJ.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm">
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">3. Production Funcional Tests For No Redirect Payments</h3>
+                        <ul class="space-y-2 text-sm ml-2">
+                            <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Camada:</strong> Testes API (Gerador JSON Chicago).</li>
+                            <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Duração:</strong> Execução imediata (Geração de Payload).</li>
+                            <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Regras de Saldo e Mobile:</strong> Segue a mesma exigência da família JSR (Reposição de saldo de R$ 2,00 e limites do App configurados para R$ 1,00 com prazo Indeterminado).</li>
+                            <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Preenchimento e Automação:</strong> CPF é obrigatório para fluxos PF; CNPJ é obrigatório para fluxos PJ.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm">
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">4. Production Funcional Tests For no Redirect Automatic Pix Payments Scheduling</h3>
+                        <ul class="space-y-2 text-sm ml-2">
+                            <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Camada:</strong> Testes API (Gerador JSON Chicago).</li>
+                            <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Duração:</strong> Execução imediata (Geração de Payload).</li>
+                            <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Regras de Saldo e Mobile:</strong> Segue a mesma exigência da família JSR (Reposição de saldo de R$ 2,00 e limites do App configurados para R$ 1,00 com prazo Indeterminado).</li>
+                            <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Preenchimento e Automação:</strong> CPF é obrigatório para fluxos PF; CNPJ é obrigatório para fluxos PJ.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm">
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">5. Production Funcional Tests For No Redirect Payments Scheduling</h3>
+                        <ul class="space-y-2 text-sm ml-2">
+                            <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Camada:</strong> Testes API (Gerador JSON Chicago).</li>
+                            <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Duração:</strong> Execução imediata (Geração de Payload).</li>
+                            <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Regras de Saldo e Mobile:</strong> Segue a mesma exigência da família JSR (Reposição de saldo de R$ 2,00 e limites do App configurados para R$ 1,00 com prazo Indeterminado).</li>
+                            <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Preenchimento e Automação:</strong> CPF é obrigatório para fluxos PF; CNPJ é obrigatório para fluxos PJ.</li>
+                            <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Regra de Proxy:</strong> O payload gerado possui o campo creditorProxy obrigatoriamente incluído dentro do objeto resource (preenchido com a hash padrão da ferramenta).</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-red-50 dark:bg-red-900/30 border-l-4 border-red-500 p-8 rounded-r-xl mt-10">
+                        <h3 class="text-xl font-bold text-red-800 dark:text-red-400 flex items-center gap-3 mb-5">
+                            <i data-lucide="alert-octagon" size="24"></i> 🚨 PONTOS CRÍTICOS GERAIS DE EXECUÇÃO (ESTEIRA JSR E NO REDIRECT)
+                        </h3>
+                        <ul class="space-y-4 text-base text-red-800 dark:text-red-200 ml-2">
+                            <li class="flex gap-3 items-start">
+                                <div class="w-2 h-2 mt-2 rounded-full bg-red-500 flex-shrink-0"></div>
+                                <div><strong>Ausência de Prazo "Indeterminado":</strong> Interrompa o teste imediatamente se a marca não possuir a opção de tempo "Indeterminado" no aplicativo.</div>
+                            </li>
+                            <li class="flex gap-3 items-start">
+                                <div class="w-2 h-2 mt-2 rounded-full bg-red-500 flex-shrink-0"></div>
+                                <div><strong>Validação Visual Obrigatória:</strong> É estritamente obrigatório abrir o dropdown no app e validar a opção configurada. Algumas marcas mascaram "5 anos" como indeterminado, mesmo o campo vindo preenchido corretamente por default.</div>
+                            </li>
+                            <li class="flex gap-3 items-start">
+                                <div class="w-2 h-2 mt-2 rounded-full bg-red-500 flex-shrink-0"></div>
+                                <div><strong>Prevenção de Falsos Negativos:</strong> Antes da execução, inspecione no aplicativo bancário se a conta está logada no perfil correto (PF ou PJ). Algumas marcas alternam contas em background, o que causará o fracasso imediato do teste.</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <article id="ferramentas-intro" class="content-section hidden fade-in max-w-4xl">
+                <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-6">Ferramentas</h1>
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-gray-200 dark:border-slate-700 shadow-sm text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-8">
+                    <p>
+                        Este menu é dedicado a detalhar o funcionamento e apresentar as interfaces (telas) de cada submódulo do Gestor de Serviços. Estas ferramentas foram projetadas para automatizar tarefas operacionais do QA.
+                    </p>
+                    <p class="mt-4 text-sm text-gray-500 dark:text-gray-400">
+                        Selecione as opções no menu lateral para visualizar a documentação funcional lado a lado com a tela de cada ferramenta.
+                    </p>
+                </div>
+            </article>
+
+            <article id="ferramentas-nomenclatura" class="content-section hidden fade-in w-full">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-2">
+                        1. Nomenclatura (Gerador de Nomenclatura e Evidências)
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-gray-200 dark:border-slate-700 overflow-hidden relative opacity-95">
+                            <div class="px-8 py-5 border-b border-gray-200 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800 flex justify-between items-center">
+                                <div>
+                                    <h2 class="text-lg font-bold text-gray-900 dark:text-white">Gerador de Nomenclatura</h2>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Padronização de logs de execução.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="p-8 grid grid-cols-1 md:grid-cols-12 gap-6">
+                                <div class="md:col-span-6 space-y-2">
+                                    <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Teste Realizado</label>
+                                    <input disabled type="text" value="Pix Scheduling 1-2" class="w-full px-4 py-3 bg-gray-100 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl text-sm text-gray-500 cursor-not-allowed">
+                                </div>
+                                <div class="md:col-span-3 space-y-2">
+                                    <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">SO</label>
+                                    <input disabled type="text" value="Android" class="w-full px-4 py-3 bg-gray-100 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl text-sm text-gray-500 cursor-not-allowed">
+                                </div>
+                                <div class="md:col-span-3 space-y-2">
+                                    <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Data</label>
+                                    <input disabled type="text" value="25/03/2026" class="w-full px-4 py-3 bg-gray-100 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl text-sm text-gray-500 cursor-not-allowed text-center">
+                                </div>
+                                <div class="md:col-span-6 space-y-2">
+                                    <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Marca</label>
+                                    <input disabled type="text" value="Banco do Brasil" class="w-full px-4 py-3 bg-gray-100 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl text-sm text-gray-500 cursor-not-allowed">
+                                </div>
+                                <div class="md:col-span-3 space-y-2">
+                                    <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Segmento</label>
+                                    <input disabled type="text" value="PF" class="w-full px-4 py-3 bg-gray-100 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl text-sm text-gray-500 cursor-not-allowed text-center">
+                                </div>
+                                <div class="md:col-span-3 space-y-2">
+                                    <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</label>
+                                    <input disabled type="text" value="OK" class="w-full px-4 py-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl text-sm text-green-600 font-bold cursor-not-allowed text-center">
+                                </div>
+                                <div class="md:col-span-12 flex justify-end mt-2">
+                                    <button class="px-6 py-2.5 bg-primary-600/50 text-white text-sm font-semibold rounded-lg flex items-center gap-2 cursor-not-allowed">
+                                        <i data-lucide="wand-2" size="18"></i> Gerar Log
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-gray-200 dark:border-slate-700 bg-gray-50/80 dark:bg-slate-900/30 p-6">
+                                <div class="flex shadow-sm">
+                                    <div class="flex-grow flex items-center px-4 py-3.5 text-sm font-mono text-primary-600 dark:text-primary-400 bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-700 rounded-l-xl border-r-0 truncate">
+                                        OK - Banco do Brasil - PF - Pix Scheduling 1-2 - 25-03-2026 - Android
+                                    </div>
+                                    <button class="rounded-r-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-6 text-sm font-semibold text-gray-400 border-l cursor-not-allowed flex items-center gap-2">
+                                        <i data-lucide="copy" size="16"></i> Copiar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-gray-200 dark:border-slate-700 overflow-hidden relative opacity-95">
+                            <div class="px-8 py-5 border-b border-gray-200 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800">
+                                <h2 class="text-lg font-bold text-gray-900 dark:text-white">Nomenclatura de Evidência</h2>
+                            </div>
+                            <div class="p-8 space-y-5">
+                                <div>
+                                    <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Saldo</label>
+                                    <div class="flex shadow-sm opacity-80"><div class="flex-grow px-4 py-3 text-sm font-mono bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-l-xl text-gray-600 dark:text-gray-300">Evidencia - Banco do Brasil - PF - Saldo</div><button class="rounded-r-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-5 text-gray-400 border-l cursor-not-allowed"><i data-lucide="copy" size="18"></i></button></div>
+                                </div>
+                                <div>
+                                    <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Versão App</label>
+                                    <div class="flex shadow-sm opacity-80"><div class="flex-grow px-4 py-3 text-sm font-mono bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-l-xl text-gray-600 dark:text-gray-300">Evidencia - Banco do Brasil - PF - Versão app</div><button class="rounded-r-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-5 text-gray-400 border-l cursor-not-allowed"><i data-lucide="copy" size="18"></i></button></div>
+                                </div>
+                                <div>
+                                    <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Erro</label>
+                                    <div class="flex shadow-sm opacity-80"><div class="flex-grow px-4 py-3 text-sm font-mono bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-l-xl text-gray-600 dark:text-gray-300">Evidencia - Banco do Brasil - PF - Mensagem de erro</div><button class="rounded-r-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-5 text-gray-400 border-l cursor-not-allowed"><i data-lucide="copy" size="18"></i></button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5">
+                        <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 sticky top-24">
+                            <strong class="text-gray-900 dark:text-white block mb-2 text-lg">Objetivo:</strong>
+                            <p class="text-gray-700 dark:text-gray-300 mb-6 pb-6 border-b border-gray-200 dark:border-slate-700">
+                                Garantir a padronização absoluta dos logs de execução e nomes de ficheiros de evidência recolhidos pelos QAs.
+                            </p>
+                            
+                            <strong class="text-gray-900 dark:text-white block mb-4">Como funciona:</strong>
+                            <ul class="space-y-4 text-gray-700 dark:text-gray-300 ml-2">
+                                <li class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                                    <div>O utilizador preenche os parâmetros da execução: Teste Realizado, Sistema Operativo (SO), Data, Marca, Segmento (PF/PJ) e Status (OK, NOK, DCR).</div>
+                                </li>
+                                <li class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                                    <div>O sistema compila estas variáveis num log padronizado (ex: OK - Marca - Segmento - Teste - Data - SO) num campo de texto pronto a copiar.</div>
+                                </li>
+                                <li class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                                    <div>Simultaneamente, gera de forma automática as nomenclaturas corretas para os ficheiros de evidência (Saldo, Versão App, Mensagem de erro).</div>
+                                </li>
+                            </ul>
+
+                            <div class="mt-8 bg-blue-50 dark:bg-blue-900/20 p-5 rounded-xl border border-blue-100 dark:border-blue-800/50">
+                                <strong class="text-blue-800 dark:text-blue-400 block mb-2 flex items-center gap-2"><i data-lucide="cpu" size="18"></i> Inteligência:</strong>
+                                <p class="text-blue-800 dark:text-blue-200 text-sm">
+                                    Possui um gatilho de sincronização; se o QA marcar um teste de longa duração (como "Pix Scheduling" ou "Pix Retry") com o status "OK", os dados da marca, teste e data são enviados instantaneamente para o módulo de Agendamento.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article id="ferramentas-agendamento" class="content-section hidden fade-in w-full">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-2">
+                        2. Agendamento (Novo Agendamento)
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+                    <div class="lg:col-span-7 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-gray-200 dark:border-slate-700 overflow-hidden relative opacity-95">
+                        <div class="px-8 py-5 border-b border-gray-200 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800 flex justify-between items-center">
+                            <div>
+                                <h2 class="text-lg font-bold text-gray-900 dark:text-white">Novo Agendamento</h2>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Planejamento de testes de longa duração.</p>
+                            </div>
+                            <div class="flex gap-3">
+                                <button class="px-4 py-2 bg-emerald-600/50 text-white text-sm font-semibold rounded-lg flex items-center gap-2 cursor-not-allowed"><i data-lucide="save" size="18"></i> Salvar</button>
+                                <button class="px-4 py-2 bg-blue-500/50 text-white text-sm font-semibold rounded-lg flex items-center gap-2 cursor-not-allowed"><i data-lucide="calendar-plus" size="18"></i> Google</button>
+                            </div>
+                        </div>
+                        
+                        <div class="p-8 grid grid-cols-1 md:grid-cols-12 gap-6">
+                            <div class="md:col-span-6 space-y-2">
+                                <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Marca</label>
+                                <input disabled type="text" value="Itaú" class="w-full px-4 py-3 bg-gray-100 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl text-sm text-gray-500">
+                            </div>
+                            <div class="md:col-span-3 space-y-2">
+                                <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Segmento</label>
+                                <input disabled type="text" value="PJ" class="w-full px-4 py-3 bg-gray-100 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl text-sm text-gray-500 text-center">
+                            </div>
+                            <div class="md:col-span-3 space-y-2">
+                                <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Teste</label>
+                                <input disabled type="text" value="Pix Retry 1-3" class="w-full px-4 py-3 bg-gray-100 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl text-sm text-gray-500 text-center truncate">
+                            </div>
+                            <div class="md:col-span-6 space-y-2">
+                                <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Data Início</label>
+                                <input disabled type="text" value="25/03/2026" class="w-full px-4 py-3 bg-gray-100 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl text-sm text-gray-500 text-center">
+                            </div>
+                            <div class="md:col-span-6 space-y-2">
+                                <label class="text-xs font-bold text-primary-500 uppercase tracking-wider">Data Fim (Auto)</label>
+                                <input disabled type="text" value="28/03/2026" class="w-full px-4 py-3 bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-xl text-sm text-primary-600 font-bold text-center">
+                            </div>
+                            <div class="md:col-span-12 space-y-2 mt-4">
+                                <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Cronograma Detalhado Gerado</label>
+                                <textarea disabled class="w-full px-4 py-3 bg-gray-100 dark:bg-slate-950 border border-gray-200 dark:border-slate-700 rounded-xl text-sm font-mono text-gray-600 dark:text-gray-400 h-32 resize-none">=== 📋 GUIA: ITAÚ [PJ] ===
+Teste: Pix Retry 1-3
+
+💰 SALDO: R$ 0,00 (Obrigatório)
+🚫 Bloqueio TOTAL de pagamentos.
+📅 CRONOGRAMA:
+[ ] 25/03 (D+0): R$ 0,00
+[ ] 26/03 (D+1): R$ 0,00
+[ ] 27/03 (D+2): R$ 0,00
+[👉] 28/03 (D+3): Pagar R$ 1,00</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5">
+                        <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 sticky top-24">
+                            <strong class="text-gray-900 dark:text-white block mb-2 text-lg">Objetivo:</strong>
+                            <p class="text-gray-700 dark:text-gray-300 mb-6 pb-6 border-b border-gray-200 dark:border-slate-700">
+                                Planeamento, monitorização e controlo rigoroso dos testes FVP de longa duração.
+                            </p>
+                            
+                            <strong class="text-gray-900 dark:text-white block mb-4">Como funciona:</strong>
+                            <ul class="space-y-4 text-gray-700 dark:text-gray-300 ml-2">
+                                <li class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                                    <div>O utilizador insere os dados base (Marca, Segmento, Teste) e a Data de Início.</div>
+                                </li>
+                                <li class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                                    <div>O sistema calcula a Data Fim automaticamente com base numa lógica pré-definida: testes "Retry" duram 3 dias (D+3), os restantes duram 2 dias (D+2).</div>
+                                </li>
+                                <li class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                                    <div>É gerado um "Cronograma Detalhado" em ecrã, que descreve as ações diárias necessárias e os saldos obrigatórios para cada dia do teste.</div>
+                                </li>
+                            </ul>
+
+                            <div class="mt-8 bg-gray-50 dark:bg-slate-900/50 p-5 rounded-xl border border-gray-200 dark:border-slate-700">
+                                <strong class="text-gray-900 dark:text-white block mb-2 flex items-center gap-2"><i data-lucide="hard-drive" size="18"></i> Integrações e Gestão:</strong>
+                                <p class="text-gray-700 dark:text-gray-300 text-sm">
+                                    Permite guardar o teste numa tabela local (Agendamentos Ativos). Oferece atalhos para exportar a tabela para Excel (.csv) ou criar um ficheiro de backup (.json), bem como restaurar backups anteriores. Inclui um botão para criar o evento diretamente no Google Calendar com o cronograma na descrição.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article id="ferramentas-relatorio" class="content-section hidden fade-in w-full">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-2">
+                        3. Relatórios (Gerador de Relatórios)
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+                    <div class="lg:col-span-7 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-gray-200 dark:border-slate-700 overflow-hidden relative opacity-95">
+                        <div class="px-8 py-5 border-b border-gray-200 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800">
+                            <div>
+                                <h2 class="text-lg font-bold text-gray-900 dark:text-white">Gerador de Relatórios</h2>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Padronização de resultados (NOK / OK).</p>
+                            </div>
+                        </div>
+                        <div class="p-8 grid grid-cols-1 md:grid-cols-12 gap-6">
+                            <div class="md:col-span-12 space-y-2">
+                                <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Qual o status/etapa do teste?</label>
+                                <input disabled type="text" value="2. Erro: Durante Autenticação/Login" class="w-full px-4 py-3 bg-gray-100 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl text-sm text-gray-500">
+                            </div>
+                            <div class="md:col-span-4 space-y-2">
+                                <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Versão do App</label>
+                                <input disabled type="text" value="8.5.0" class="w-full px-4 py-3 bg-gray-100 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl text-sm text-gray-500">
+                            </div>
+                            <div class="md:col-span-4 space-y-2">
+                                <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Nº Tentativas</label>
+                                <input disabled type="text" value="3" class="w-full px-4 py-3 bg-gray-100 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl text-sm text-gray-500 text-center">
+                            </div>
+                            <div class="md:col-span-4 space-y-2">
+                                <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Plataforma</label>
+                                <input disabled type="text" value="Android" class="w-full px-4 py-3 bg-gray-100 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl text-sm text-gray-500 text-center">
+                            </div>
+                            <div class="md:col-span-12 space-y-2 mt-2">
+                                <div class="flex justify-between items-center"><label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Análise do QA</label><span class="text-xs text-primary-600 font-bold cursor-not-allowed"><i data-lucide="plus-circle" size="14" class="inline"></i> Texto Raidiam</span></div>
+                                <textarea disabled class="w-full px-4 py-3 bg-gray-100 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl text-sm h-24 resize-none">Boa tarde, o teste foi realizado pelo usuário mas apresentou erro.</textarea>
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-200 dark:border-slate-700 bg-gray-50/80 dark:bg-slate-900/30 p-8">
+                            <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 block">Preview</label>
+                            <div class="relative">
+                                <textarea disabled class="w-full p-4 text-sm font-mono text-gray-600 dark:text-gray-300 bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-700 rounded-xl h-48 resize-none">Prezados, realizamos o teste solicitado, porém apresentou durante a etapa de login do usuário.
+Anexo o log com detalhamento.
+
+Versão do app: 8.5.0
+Número de tentativas: 3
+Plataforma: Android
+Análise do QA: Boa tarde, o teste foi realizado pelo usuário mas apresentou erro.</textarea>
+                                <button class="absolute top-3 right-3 px-4 py-2 bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-300 text-xs font-bold rounded-lg border border-gray-200 dark:border-slate-600 flex items-center gap-2 cursor-not-allowed">
+                                    <i data-lucide="copy" size="14"></i> Copiar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5">
+                        <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 sticky top-24">
+                            <strong class="text-gray-900 dark:text-white block mb-2 text-lg">Objetivo:</strong>
+                            <p class="text-gray-700 dark:text-gray-300 mb-6 pb-6 border-b border-gray-200 dark:border-slate-700">
+                                Padronizar a comunicação de resultados (erros ou sucessos) para as equipas de desenvolvimento e stakeholders.
+                            </p>
+                            
+                            <strong class="text-gray-900 dark:text-white block mb-4">Como funciona:</strong>
+                            <ul class="space-y-4 text-gray-700 dark:text-gray-300 ml-2">
+                                <li class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                                    <div>O QA seleciona a etapa exata onde o teste falhou (ex: "1. Erro: Antes do Redirecionamento", "3. Erro: Durante Consentimento") ou se foi concluído com sucesso.</div>
+                                </li>
+                                <li class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                                    <div>O formulário adapta-se ao contexto: pede a Versão do App, o Número de Tentativas e a Plataforma.</div>
+                                </li>
+                                <li class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                                    <div>Inclui uma área para a "Análise do QA", com um botão rápido que insere um texto padrão da Raidiam.</div>
+                                </li>
+                                <li class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                                    <div>O sistema compila todas as informações num texto formatado e profissional na área de "Preview", disponibilizando um botão de cópia com um clique.</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article id="ferramentas-chicago" class="content-section hidden fade-in w-full">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-2">
+                        4. Gerador de JSON (Chicago)
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+                    <div class="lg:col-span-8 flex flex-col space-y-6 opacity-95">
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden ring-1 ring-black/5">
+                            <div class="px-6 py-4 border-b border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 flex justify-between items-center">
+                                <h3 class="font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                                    <i data-lucide="database" size="18" class="text-primary-500"></i> Configuração de Dados
+                                </h3>
+                                <button class="text-xs px-4 py-2 bg-primary-600/50 text-white rounded-lg shadow-sm font-medium cursor-not-allowed flex items-center gap-1.5">
+                                    <i data-lucide="save" size="14"></i> Salvar
+                                </button>
+                            </div>
+                            
+                            <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="space-y-4">
+                                    <h4 class="text-sm font-bold text-primary-600 dark:text-primary-400 uppercase tracking-wider border-b border-gray-200 dark:border-slate-700 pb-2 flex items-center gap-2"><i data-lucide="user" size="16"></i> Pessoa Física (PF)</h4>
+                                    <div>
+                                        <label class="text-xs font-bold text-gray-500 dark:text-gray-400 block mb-1">Nome Completo</label>
+                                        <input disabled type="text" value="Alan Teixeira" class="w-full px-3 py-2 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-lg text-sm text-gray-500 cursor-not-allowed">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs font-bold text-gray-500 dark:text-gray-400 block mb-1">CPF</label>
+                                        <input disabled type="text" value="123.456.789-00" class="w-full px-3 py-2 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-lg text-sm text-gray-500 font-mono cursor-not-allowed">
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="text-xs font-bold text-gray-500 dark:text-gray-400 block mb-1">Conta Bancária</label>
+                                            <input disabled type="text" value="8360375143" class="w-full px-3 py-2 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-lg text-sm text-gray-500 font-mono cursor-not-allowed">
+                                        </div>
+                                        <div>
+                                            <label class="text-xs font-bold text-gray-500 dark:text-gray-400 block mb-1">Tipo de Conta</label>
+                                            <input disabled type="text" value="TRAN" class="w-full px-3 py-2 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-lg text-sm text-gray-500 cursor-not-allowed">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-4 md:border-l md:border-gray-200 dark:md:border-slate-700 md:pl-8">
+                                    <h4 class="text-sm font-bold text-pink-600 dark:text-pink-400 uppercase tracking-wider pb-2 border-b border-gray-200 dark:border-slate-700 flex items-center gap-2"><i data-lucide="building-2" size="16"></i> Pessoa Jurídica (PJ)</h4>
+                                    <div>
+                                        <label class="text-xs font-bold text-gray-500 dark:text-gray-400 block mb-1">Nome da Empresa</label>
+                                        <input disabled type="text" value="JSR Service LTDA" class="w-full px-3 py-2 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-lg text-sm text-gray-500 cursor-not-allowed">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs font-bold text-gray-500 dark:text-gray-400 block mb-1">CNPJ</label>
+                                        <input disabled type="text" value="63.602.987/0001-34" class="w-full px-3 py-2 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-lg text-sm text-gray-500 font-mono cursor-not-allowed">
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="text-xs font-bold text-gray-500 dark:text-gray-400 block mb-1">ISPB (PJ)</label>
+                                            <input disabled type="text" value="18236120" class="w-full px-3 py-2 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-lg text-sm text-gray-500 font-mono cursor-not-allowed">
+                                        </div>
+                                        <div>
+                                            <label class="text-xs font-bold text-gray-500 dark:text-gray-400 block mb-1">Issuer (PJ)</label>
+                                            <input disabled type="text" value="0001" class="w-full px-3 py-2 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-lg text-sm text-gray-500 font-mono cursor-not-allowed">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden flex-shrink-0">
+                            <div class="p-6 bg-gradient-to-r from-gray-50 to-white dark:from-slate-800 dark:to-slate-800/80 border-b border-gray-200 dark:border-slate-700 space-y-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-4 border-b border-gray-200 dark:border-slate-700/50">
+                                    <div>
+                                        <label class="text-xs font-bold text-primary-600 dark:text-primary-400 uppercase tracking-wider block mb-1">Alias</label>
+                                        <input disabled type="text" value="teste-alias" class="w-full px-4 py-2.5 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-600 rounded-xl text-sm shadow-sm cursor-not-allowed text-gray-500">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs font-bold text-primary-600 dark:text-primary-400 uppercase tracking-wider block mb-1">AS-ID (Auth Server)</label>
+                                        <input disabled type="text" value="asid-12345" class="w-full px-4 py-2.5 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-600 rounded-xl text-sm shadow-sm cursor-not-allowed text-gray-500">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
+                                    <div class="md:col-span-2">
+                                        <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider block mb-2">Seg.</label>
+                                        <input disabled type="text" value="PJ" class="w-full px-3 py-3 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-600 rounded-xl text-sm font-bold text-center shadow-sm cursor-not-allowed text-gray-500">
+                                    </div>
+                                    <div class="md:col-span-7">
+                                        <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider block mb-2">Tipo de Teste (Payload)</label>
+                                        <input disabled type="text" value="No Redirect Payments Scheduling V2.2" class="w-full px-3 py-3 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-600 rounded-xl text-[13px] font-medium shadow-sm cursor-not-allowed truncate text-gray-500">
+                                    </div>
+                                    <div class="md:col-span-3">
+                                        <button class="w-full px-4 py-3 bg-gray-900/50 dark:bg-primary-600/50 text-white text-sm font-bold rounded-xl shadow-lg cursor-not-allowed flex items-center justify-center gap-2">
+                                            <i data-lucide="zap" size="18"></i> Gerar JSON
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-[#1e1e1e] rounded-2xl shadow-xl flex-1 flex flex-col overflow-hidden border border-gray-800 min-h-[300px]">
+                            <div class="px-5 py-3 bg-[#2d2d2d] flex justify-between items-center border-b border-black">
+                                <span class="text-xs font-mono text-gray-400 flex items-center gap-2"><i data-lucide="terminal" size="14"></i> payload_request.json</span>
+                                <button class="text-xs font-bold text-gray-300 bg-white/10 px-4 py-1.5 rounded-lg cursor-not-allowed flex items-center gap-2">
+                                    <i data-lucide="copy" size="14"></i> Copiar Código
+                                </button>
+                            </div>
+                            <textarea disabled class="flex-1 w-full bg-transparent text-green-400 font-mono text-sm p-6 resize-none outline-none custom-scrollbar cursor-not-allowed">{
+  "alias": "teste-alias",
+  "server": {
+      "authorisationServerId": "asid-12345"
+  },
+  "resource": {
+      "loggedUserIdentification": "12345678900",
+      "businessEntityIdentification": "63602987000134",
+      "creditorAccountIspb": "18236120",
+      "creditorAccountIssuer": "0001",
+      "creditorAccountNumber": "8360375143",
+      "creditorAccountAccountType": "TRAN",
+      "creditorName": "JSR SERVICE LTDA",
+      "creditorCpfCnpj": "63602987000134",
+      "creditorProxy": "1b25f9c3-8c4c-4491-b67f-10cf007d500c",
+      "brazilCpf": "12345678900",
+      "brazilCnpj": "63602987000134"
+  }
+}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-4">
+                        <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 sticky top-24">
+                            <strong class="text-gray-900 dark:text-white block mb-2 text-lg">Objetivo:</strong>
+                            <p class="text-gray-700 dark:text-gray-300 mb-6 pb-6 border-b border-gray-200 dark:border-slate-700">
+                                Criação ágil e precisa de massa de dados (payloads JSON) para a execução de testes de API do Open Finance.
+                            </p>
+                            
+                            <strong class="text-gray-900 dark:text-white block mb-4">Como funciona:</strong>
+                            <ul class="space-y-4 text-gray-700 dark:text-gray-300 ml-2">
+                                <li class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                                    <div><strong>Configuração de Dados:</strong> O utilizador preenche os dados cadastrais que serão injetados nos payloads. É dividido por perfis: Pessoa Física (Nome, CPF, ISPB, Issuer, Conta) e Pessoa Jurídica (Empresa, CNPJ, ISPB PJ, etc.).</div>
+                                </li>
+                                <li class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                                    <div><strong>Motor de Geração:</strong> O QA preenche as chaves de ambiente (Alias, AS-ID), escolhe o Segmento alvo (PF/PJ) e seleciona o Tipo de Teste desejado.</div>
+                                </li>
+                                <li class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                                    <div>Ao clicar em "Gerar JSON", o código processa as regras de negócio: valida documentos (CPF/CNPJ) e constrói o objeto JSON final no ecrã do terminal.</div>
+                                </li>
+                                <li class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                                    <div><strong>Tratamento de Regras:</strong> O sistema injeta dinamicamente blocos de código específicos dependendo do teste (como a inclusão obrigatória do CNPJ para testes PJ ou a remoção/inclusão precisa da chave creditorProxy em testes V2.2).</div>
+                                </li>
+                                <li class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
+                                    <div><strong>Ecossistema:</strong> Possui capacidade de guardar e restaurar ficheiros de sessão (.json) para não perder os dados preenchidos, além de integrar o "Modal de Orientações", que dita as regras de negócio de saldo e setup mobile para o QA antes da execução.</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <script>
+        // Lógica de UI da Wiki
+        const wiki = {
+            showSection: function(sectionId) {
+                // Esconde todas as seções
+                document.querySelectorAll('.content-section').forEach(el => {
+                    el.classList.add('hidden');
+                    el.classList.remove('fade-in');
+                });
+                
+                // Mostra a seção desejada com animação
+                const target = document.getElementById(sectionId);
+                if (target) {
+                    target.classList.remove('hidden');
+                    // Pequeno delay para forçar reflow e ativar a animação CSS
+                    setTimeout(() => target.classList.add('fade-in'), 10);
+                }
+
+                // Atualiza state ativo nos botões
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    if (btn.getAttribute('data-target') === sectionId) {
+                        // Ativa botão
+                        btn.classList.add('text-primary-600', 'dark:text-primary-400', 'font-bold');
+                        if(btn.getAttribute('data-target') === 'home') {
+                            btn.classList.add('bg-primary-50', 'dark:bg-slate-700/50');
+                        }
+                        btn.classList.remove('text-gray-500', 'dark:text-gray-400', 'font-medium', 'hover:text-primary-600', 'dark:hover:text-primary-400');
+                    } else {
+                        // Desativa botão
+                        btn.classList.remove('text-primary-600', 'dark:text-primary-400', 'font-bold', 'bg-primary-50', 'dark:bg-slate-700/50');
+                        btn.classList.add('text-gray-500', 'dark:text-gray-400', 'font-medium', 'hover:text-primary-600', 'dark:hover:text-primary-400');
+                    }
+                });
+            },
+
+            toggleMenu: function(menuId) {
+                const menu = document.getElementById(menuId);
+                const icon = document.getElementById('icon-' + menuId);
+                
+                if (menu.classList.contains('open')) {
+                    menu.classList.remove('open');
+                    icon.classList.remove('rotate-180');
+                } else {
+                    menu.classList.add('open');
+                    icon.classList.add('rotate-180');
+                }
+            }
+        };
+
+        // Inicializa ícones do Lucide
+        lucide.createIcons();
+    </script>
+</body>
+</html>
