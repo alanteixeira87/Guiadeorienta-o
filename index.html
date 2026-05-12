@@ -74,7 +74,7 @@
 
             <div class="pt-2">
                 <button onclick="wiki.toggleMenu('menu-testes')" class="w-full flex items-center justify-between px-4 py-2.5 text-sm font-bold rounded-xl transition-all text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700/50">
-                    <span class="flex items-center gap-3"><i data-lucide="check-square" size="18" class="text-emerald-500"></i> Orientação testes</span>
+                    <span class="flex items-center gap-3"><i data-lucide="check-square" size="18" class="text-emerald-500"></i> Orientação de testes</span>
                     <i data-lucide="chevron-down" size="16" class="transition-transform transform" id="icon-menu-testes"></i>
                 </button>
                 <div id="menu-testes" class="submenu pl-11 pr-2 mt-1 space-y-1">
@@ -91,11 +91,13 @@
                     <i data-lucide="chevron-down" size="16" class="transition-transform transform" id="icon-menu-ferramentas"></i>
                 </button>
                 <div id="menu-ferramentas" class="submenu pl-11 pr-2 mt-1 space-y-1">
-                    <button onclick="wiki.showSection('ferramentas-intro')" class="nav-btn w-full text-left py-2 text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors" data-target="ferramentas-intro">Visão Geral</button>
-                    <button onclick="wiki.showSection('ferramentas-nomenclatura')" class="nav-btn w-full text-left py-2 text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors" data-target="ferramentas-nomenclatura">Nomenclatura</button>
-                    <button onclick="wiki.showSection('ferramentas-agendamento')" class="nav-btn w-full text-left py-2 text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors" data-target="ferramentas-agendamento">Agendamento</button>
-                    <button onclick="wiki.showSection('ferramentas-relatorio')" class="nav-btn w-full text-left py-2 text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors" data-target="ferramentas-relatorio">Relatórios</button>
-                    <button onclick="wiki.showSection('ferramentas-chicago')" class="nav-btn w-full text-left py-2 text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors" data-target="ferramentas-chicago">Gerador de JSON</button>
+                    <button onclick="wiki.showSection('ferramentas-gerenciador')" class="nav-btn w-full text-left py-2 text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors" data-target="ferramentas-gerenciador">Gerenciador FVP</button>
+                    <button onclick="wiki.showSection('fvp-guia-preenchimento')" class="nav-btn w-full text-left py-2 text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors" data-target="fvp-guia-preenchimento">FVP - Guia de preenchimento</button>
+                    <button onclick="wiki.showSection('ferramentas-intro')" class="nav-btn hidden w-full text-left py-2 text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors" data-target="ferramentas-intro">Visão Geral</button>
+                    <button onclick="wiki.showSection('ferramentas-nomenclatura')" class="nav-btn hidden w-full text-left py-2 text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors" data-target="ferramentas-nomenclatura">Nomenclatura</button>
+                    <button onclick="wiki.showSection('ferramentas-agendamento')" class="nav-btn hidden w-full text-left py-2 text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors" data-target="ferramentas-agendamento">Agendamento</button>
+                    <button onclick="wiki.showSection('ferramentas-relatorio')" class="nav-btn hidden w-full text-left py-2 text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors" data-target="ferramentas-relatorio">Relatórios</button>
+                    <button onclick="wiki.showSection('ferramentas-chicago')" class="nav-btn hidden w-full text-left py-2 text-sm text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors" data-target="ferramentas-chicago">Gerador de JSON</button>
                 </div>
             </div>
 
@@ -124,26 +126,26 @@
                         <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
                             <i data-lucide="check-square" size="28"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Orientação testes</h3>
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Orientação de testes</h3>
                         <p class="text-base text-gray-600 dark:text-gray-400">
-                            Consulte aqui sobre o que o usuário irá encontrar em cada teste. Aprenda como executá-los de acordo com as regras exatas do documento para as esteiras JSR, Longa Duração e Sweeping.
+                            Consulte aqui o que o usuário encontrará em cada teste. Aprenda como executá-los de acordo com as regras exatas do documento para as esteiras JSR, Longa Duração e Sweeping.
                         </p>
                     </div>
 
-                    <div onclick="wiki.showSection('ferramentas-intro'); wiki.toggleMenu('menu-ferramentas');" class="group bg-white dark:bg-slate-800 p-8 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-blue-500 dark:hover:border-blue-500 transition-all cursor-pointer">
+                    <div onclick="wiki.showSection('ferramentas-gerenciador'); wiki.toggleMenu('menu-ferramentas');" class="group bg-white dark:bg-slate-800 p-8 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-blue-500 dark:hover:border-blue-500 transition-all cursor-pointer">
                         <div class="w-14 h-14 bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
                             <i data-lucide="wrench" size="28"></i>
                         </div>
                         <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Ferramentas</h3>
                         <p class="text-base text-gray-600 dark:text-gray-400">
-                            Entenda o que é nossa ferramenta e como utilizar os submódulos: nomenclatura, agendamento, relatório e gerador de json. Tudo ilustrado com layouts iterativos para fácil compreensão.
+                            Entenda o que é a nossa ferramenta e como utilizar os submódulos: nomenclatura, agendamento, relatório e gerador de JSON. Tudo ilustrado com layouts interativos para fácil compreensão.
                         </p>
                     </div>
                 </div>
             </article>
 
             <article id="testes-intro" class="content-section hidden fade-in max-w-4xl">
-                <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-6">Orientação testes</h1>
+                <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-6">Orientação de testes</h1>
                 <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-gray-200 dark:border-slate-700 shadow-sm text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                     <p>
                         Neste menu, você encontrará as orientações completas de como executar os testes de acordo com as regras documentadas. 
@@ -156,11 +158,11 @@
 
             <article id="testes-sweeping" class="content-section hidden fade-in max-w-4xl">
                 <div class="flex items-center gap-3 mb-6 text-gray-500 dark:text-gray-400 text-sm font-medium">
-                    <i data-lucide="check-square" size="16"></i> Orientação testes <i data-lucide="chevron-right" size="14"></i> <span class="text-primary-600 dark:text-primary-400">Sweeping Payments</span>
+                    <i data-lucide="check-square" size="16"></i> Orientação de testes <i data-lucide="chevron-right" size="14"></i> <span class="text-primary-600 dark:text-primary-400">Sweeping Payments</span>
                 </div>
                 
                 <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-8 border-b border-gray-200 dark:border-slate-700 pb-4">
-                    Teste: Production Funcional Tests For Automatic Sweeping Payments
+                    Teste: Production Functional Tests For Automatic Sweeping Payments
                 </h1>
                 
                 <div class="space-y-8 text-gray-800 dark:text-gray-200">
@@ -209,7 +211,7 @@
 
             <article id="testes-agendamentos" class="content-section hidden fade-in max-w-4xl">
                 <div class="flex items-center gap-3 mb-6 text-gray-500 dark:text-gray-400 text-sm font-medium">
-                    <i data-lucide="check-square" size="16"></i> Orientação testes <i data-lucide="chevron-right" size="14"></i> <span class="text-primary-600 dark:text-primary-400">Longa Duração</span>
+                    <i data-lucide="check-square" size="16"></i> Orientação de testes <i data-lucide="chevron-right" size="14"></i> <span class="text-primary-600 dark:text-primary-400">Longa Duração</span>
                 </div>
                 
                 <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-6 border-b border-gray-200 dark:border-slate-700 pb-4">
@@ -285,7 +287,7 @@
 
             <article id="testes-jsr" class="content-section hidden fade-in max-w-4xl">
                 <div class="flex items-center gap-3 mb-6 text-gray-500 dark:text-gray-400 text-sm font-medium">
-                    <i data-lucide="check-square" size="16"></i> Orientação testes <i data-lucide="chevron-right" size="14"></i> <span class="text-primary-600 dark:text-primary-400">JSR e No Redirect</span>
+                    <i data-lucide="check-square" size="16"></i> Orientação de testes <i data-lucide="chevron-right" size="14"></i> <span class="text-primary-600 dark:text-primary-400">JSR e No Redirect</span>
                 </div>
                 
                 <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-6 border-b border-gray-200 dark:border-slate-700 pb-4">
@@ -305,7 +307,7 @@
                     </div>
 
                     <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm">
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">2. Production Funcional Tests For No Redirect Automatic Pix Payments</h3>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">2. Production Functional Tests For No Redirect Automatic Pix Payments</h3>
                         <ul class="space-y-2 text-sm ml-2">
                             <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Camada:</strong> Testes API (Gerador JSON Chicago).</li>
                             <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Duração:</strong> Execução imediata (Geração de Payload).</li>
@@ -315,7 +317,7 @@
                     </div>
 
                     <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm">
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">3. Production Funcional Tests For No Redirect Payments</h3>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">3. Production Functional Tests For No Redirect Payments</h3>
                         <ul class="space-y-2 text-sm ml-2">
                             <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Camada:</strong> Testes API (Gerador JSON Chicago).</li>
                             <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Duração:</strong> Execução imediata (Geração de Payload).</li>
@@ -325,7 +327,7 @@
                     </div>
 
                     <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm">
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">4. Production Funcional Tests For no Redirect Automatic Pix Payments Scheduling</h3>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">4. Production Functional Tests For No Redirect Automatic Pix Payments Scheduling</h3>
                         <ul class="space-y-2 text-sm ml-2">
                             <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Camada:</strong> Testes API (Gerador JSON Chicago).</li>
                             <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Duração:</strong> Execução imediata (Geração de Payload).</li>
@@ -335,7 +337,7 @@
                     </div>
 
                     <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm">
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">5. Production Funcional Tests For No Redirect Payments Scheduling</h3>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">5. Production Functional Tests For No Redirect Payments Scheduling</h3>
                         <ul class="space-y-2 text-sm ml-2">
                             <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Camada:</strong> Testes API (Gerador JSON Chicago).</li>
                             <li><span class="w-1.5 h-1.5 inline-block rounded-full bg-gray-400 dark:bg-gray-500 mr-2"></span><strong>Duração:</strong> Execução imediata (Geração de Payload).</li>
@@ -359,7 +361,7 @@
                             
                             <li class="flex gap-3 items-start">
                                 <div class="w-2 h-2 mt-2 rounded-full bg-red-500 flex-shrink-0"></div>
-                                <div><strong>Os prints com relação a saldo só seram aceitos com diferença de 1h</strong>em relação a execução do teste por determinação da <strong>DTO</strong> lembrando que se caso for identificado prints com diferença de horarío além do estipulado pela DTO será necessária a reexecução do mesmo para validar o status correto.</div>
+                                <div><strong>Os prints relacionados ao saldo só serão aceitos com diferença de até 1h</strong> em relação à execução do teste, por determinação da <strong>DTO</strong>. Caso sejam identificados prints com diferença de horário além do estipulado pela DTO, será necessária a reexecução do teste para validar o status correto.</div>
                             </li>
                             
 
@@ -376,6 +378,86 @@
                                 <div><strong>Prevenção de Falsos Negativos:</strong> Antes da execução, inspecione no aplicativo bancário se a conta está logada no perfil correto (PF ou PJ). Algumas marcas alternam contas em background, o que causará o fracasso imediato do teste.</div>
                             </li>
                         </ul>
+                    </div>
+                </div>
+            </article>
+
+            <article id="ferramentas-gerenciador" class="content-section hidden fade-in max-w-5xl">
+                <div class="flex items-center gap-3 mb-6 text-gray-500 dark:text-gray-400 text-sm font-medium">
+                    <i data-lucide="wrench" size="16"></i> Ferramentas <i data-lucide="chevron-right" size="14"></i> <span class="text-primary-600 dark:text-primary-400">Gerenciador FVP</span>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-gray-200 dark:border-slate-700 shadow-sm mb-8">
+                    <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-4">Gerenciador FVP</h1>
+                    <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                        Aqui ficam os recursos que antes estavam diretamente no menu Ferramentas. Acesse os submódulos do gerenciador para consultar nomenclatura, agendamento, relatórios e geração de JSON para apoio ao preenchimento da FVP.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <button onclick="wiki.showSection('ferramentas-nomenclatura')" class="group text-left bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm hover:border-primary-500 dark:hover:border-primary-500 transition-all">
+                        <span class="w-11 h-11 bg-primary-50 dark:bg-primary-500/10 text-primary-600 dark:text-primary-400 rounded-xl flex items-center justify-center mb-4"><i data-lucide="file-pen-line" size="22"></i></span>
+                        <span class="block text-xl font-bold text-gray-900 dark:text-white mb-2">Nomenclatura</span>
+                        <span class="block text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Padronização de logs de execução e evidências.</span>
+                    </button>
+
+                    <button onclick="wiki.showSection('ferramentas-agendamento')" class="group text-left bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm hover:border-primary-500 dark:hover:border-primary-500 transition-all">
+                        <span class="w-11 h-11 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-xl flex items-center justify-center mb-4"><i data-lucide="calendar-clock" size="22"></i></span>
+                        <span class="block text-xl font-bold text-gray-900 dark:text-white mb-2">Agendamento</span>
+                        <span class="block text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Planejamento e acompanhamento dos testes FVP de longa duração.</span>
+                    </button>
+
+                    <button onclick="wiki.showSection('ferramentas-relatorio')" class="group text-left bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm hover:border-primary-500 dark:hover:border-primary-500 transition-all">
+                        <span class="w-11 h-11 bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded-xl flex items-center justify-center mb-4"><i data-lucide="clipboard-list" size="22"></i></span>
+                        <span class="block text-xl font-bold text-gray-900 dark:text-white mb-2">Relatórios</span>
+                        <span class="block text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Modelo de comunicação de resultado OK, NOK e análise do QA.</span>
+                    </button>
+
+                    <button onclick="wiki.showSection('ferramentas-chicago')" class="group text-left bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm hover:border-primary-500 dark:hover:border-primary-500 transition-all">
+                        <span class="w-11 h-11 bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-xl flex items-center justify-center mb-4"><i data-lucide="braces" size="22"></i></span>
+                        <span class="block text-xl font-bold text-gray-900 dark:text-white mb-2">Gerador de JSON</span>
+                        <span class="block text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Geração de payloads com alias e authorization-server para os testes solicitados.</span>
+                    </button>
+                </div>
+            </article>
+
+            <article id="fvp-guia-preenchimento" class="content-section hidden fade-in w-full">
+                <div class="flex items-center gap-3 mb-6 text-gray-500 dark:text-gray-400 text-sm font-medium">
+                    <i data-lucide="wrench" size="16"></i> Ferramentas <i data-lucide="chevron-right" size="14"></i> <span class="text-primary-600 dark:text-primary-400">FVP - Guia de preenchimento</span>
+                </div>
+
+                <div class="max-w-6xl bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                    <div class="p-5 sm:p-8 border-b border-gray-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div>
+                            <p id="fvp-guide-counter" class="text-sm font-bold text-primary-600 dark:text-primary-400 mb-2">Etapa 1 de 10</p>
+                            <h1 id="fvp-guide-title" class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">Acesso à FVP</h1>
+                        </div>
+                        <div id="fvp-guide-dots" class="flex items-center gap-2" aria-label="Indicador de etapas"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
+                        <div id="fvp-guide-image-panel" class="lg:col-span-7 bg-gray-100 dark:bg-slate-900/70 p-4 sm:p-6 flex items-center justify-center min-h-[260px]">
+                            <img id="fvp-guide-image" src="assets/1.png" alt="Imagem da etapa do guia FVP" class="w-full max-h-[520px] object-contain rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-950 shadow-sm">
+                        </div>
+
+                        <div id="fvp-guide-text-panel" class="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between gap-8">
+                            <div>
+                                <div class="w-12 h-12 rounded-xl bg-primary-50 dark:bg-primary-500/10 text-primary-600 dark:text-primary-400 flex items-center justify-center mb-5">
+                                    <i data-lucide="map" size="24"></i>
+                                </div>
+                                <div id="fvp-guide-description" class="space-y-4 text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed"></div>
+                                <ul id="fvp-guide-checklist" class="mt-6 space-y-3 text-sm text-gray-700 dark:text-gray-300"></ul>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-3 sm:justify-between">
+                                <button id="fvp-guide-prev" onclick="fvpGuide.previous()" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-gray-200 dark:border-slate-700 text-sm font-bold text-gray-700 dark:text-gray-200 bg-white dark:bg-slate-900 hover:border-primary-500 disabled:opacity-40 disabled:cursor-not-allowed transition-all">
+                                    <i data-lucide="arrow-left" size="18"></i> Voltar
+                                </button>
+                                <button id="fvp-guide-next" onclick="fvpGuide.next()" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-sm font-bold text-white transition-all">
+                                    Avançar <i data-lucide="arrow-right" size="18"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </article>
@@ -460,15 +542,15 @@
                             <div class="p-8 space-y-5">
                                 <div>
                                     <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Saldo</label>
-                                    <div class="flex shadow-sm opacity-80"><div class="flex-grow px-4 py-3 text-sm font-mono bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-l-xl text-gray-600 dark:text-gray-300">Evidencia - Banco do Brasil - PF - Saldo</div><button class="rounded-r-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-5 text-gray-400 border-l cursor-not-allowed"><i data-lucide="copy" size="18"></i></button></div>
+                                    <div class="flex shadow-sm opacity-80"><div class="flex-grow px-4 py-3 text-sm font-mono bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-l-xl text-gray-600 dark:text-gray-300">Evidência - Banco do Brasil - PF - Saldo</div><button class="rounded-r-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-5 text-gray-400 border-l cursor-not-allowed"><i data-lucide="copy" size="18"></i></button></div>
                                 </div>
                                 <div>
-                                    <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Versão App</label>
-                                    <div class="flex shadow-sm opacity-80"><div class="flex-grow px-4 py-3 text-sm font-mono bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-l-xl text-gray-600 dark:text-gray-300">Evidencia - Banco do Brasil - PF - Versão app</div><button class="rounded-r-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-5 text-gray-400 border-l cursor-not-allowed"><i data-lucide="copy" size="18"></i></button></div>
+                                    <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Versão do app</label>
+                                    <div class="flex shadow-sm opacity-80"><div class="flex-grow px-4 py-3 text-sm font-mono bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-l-xl text-gray-600 dark:text-gray-300">Evidência - Banco do Brasil - PF - Versão app</div><button class="rounded-r-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-5 text-gray-400 border-l cursor-not-allowed"><i data-lucide="copy" size="18"></i></button></div>
                                 </div>
                                 <div>
                                     <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 block">Erro</label>
-                                    <div class="flex shadow-sm opacity-80"><div class="flex-grow px-4 py-3 text-sm font-mono bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-l-xl text-gray-600 dark:text-gray-300">Evidencia - Banco do Brasil - PF - Mensagem de erro</div><button class="rounded-r-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-5 text-gray-400 border-l cursor-not-allowed"><i data-lucide="copy" size="18"></i></button></div>
+                                    <div class="flex shadow-sm opacity-80"><div class="flex-grow px-4 py-3 text-sm font-mono bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-l-xl text-gray-600 dark:text-gray-300">Evidência - Banco do Brasil - PF - Mensagem de erro</div><button class="rounded-r-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-5 text-gray-400 border-l cursor-not-allowed"><i data-lucide="copy" size="18"></i></button></div>
                                 </div>
                             </div>
                         </div>
@@ -478,14 +560,14 @@
                         <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 sticky top-24">
                             <strong class="text-gray-900 dark:text-white block mb-2 text-lg">Objetivo:</strong>
                             <p class="text-gray-700 dark:text-gray-300 mb-6 pb-6 border-b border-gray-200 dark:border-slate-700">
-                                Garantir a padronização absoluta dos logs de execução e nomes de ficheiros de evidência recolhidos pelos QAs.
+                                Garantir a padronização absoluta dos logs de execução e nomes de arquivos de evidência coletados pelos QAs.
                             </p>
                             
                             <strong class="text-gray-900 dark:text-white block mb-4">Como funciona:</strong>
                             <ul class="space-y-4 text-gray-700 dark:text-gray-300 ml-2">
                                 <li class="flex gap-3 items-start">
                                     <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
-                                    <div>O utilizador preenche os parâmetros da execução: Teste Realizado, Sistema Operativo (SO), Data, Marca, Segmento (PF/PJ) e Status (OK, NOK, DCR).</div>
+                                    <div>O usuário preenche os parâmetros da execução: Teste Realizado, Sistema Operacional (SO), Data, Marca, Segmento (PF/PJ) e Status (OK, NOK, DCR).</div>
                                 </li>
                                 <li class="flex gap-3 items-start">
                                     <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
@@ -493,7 +575,7 @@
                                 </li>
                                 <li class="flex gap-3 items-start">
                                     <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
-                                    <div>Simultaneamente, gera de forma automática as nomenclaturas corretas para os ficheiros de evidência (Saldo, Versão App, Mensagem de erro).</div>
+                                    <div>Simultaneamente, gera de forma automática as nomenclaturas corretas para os arquivos de evidência (Saldo, Versão do app, Mensagem de erro).</div>
                                 </li>
                             </ul>
 
@@ -542,11 +624,11 @@
                                 <input disabled type="text" value="Pix Retry 1-3" class="w-full px-4 py-3 bg-gray-100 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl text-sm text-gray-500 text-center truncate">
                             </div>
                             <div class="md:col-span-6 space-y-2">
-                                <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Data Início</label>
+                                <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Data de início</label>
                                 <input disabled type="text" value="25/03/2026" class="w-full px-4 py-3 bg-gray-100 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl text-sm text-gray-500 text-center">
                             </div>
                             <div class="md:col-span-6 space-y-2">
-                                <label class="text-xs font-bold text-primary-500 uppercase tracking-wider">Data Fim (Auto)</label>
+                                <label class="text-xs font-bold text-primary-500 uppercase tracking-wider">Data de fim (auto)</label>
                                 <input disabled type="text" value="28/03/2026" class="w-full px-4 py-3 bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-xl text-sm text-primary-600 font-bold text-center">
                             </div>
                             <div class="md:col-span-12 space-y-2 mt-4">
@@ -569,29 +651,29 @@ Teste: Pix Retry 1-3
                         <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 sticky top-24">
                             <strong class="text-gray-900 dark:text-white block mb-2 text-lg">Objetivo:</strong>
                             <p class="text-gray-700 dark:text-gray-300 mb-6 pb-6 border-b border-gray-200 dark:border-slate-700">
-                                Planeamento, monitorização e controlo rigoroso dos testes FVP de longa duração.
+                                Planejamento, monitoramento e controle rigoroso dos testes FVP de longa duração.
                             </p>
                             
                             <strong class="text-gray-900 dark:text-white block mb-4">Como funciona:</strong>
                             <ul class="space-y-4 text-gray-700 dark:text-gray-300 ml-2">
                                 <li class="flex gap-3 items-start">
                                     <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
-                                    <div>O utilizador insere os dados base (Marca, Segmento, Teste) e a Data de Início.</div>
+                                    <div>O usuário insere os dados-base (Marca, Segmento, Teste) e a Data de Início.</div>
                                 </li>
                                 <li class="flex gap-3 items-start">
                                     <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
-                                    <div>O sistema calcula a Data Fim automaticamente com base numa lógica pré-definida: testes "Retry" duram 3 dias (D+3), os restantes duram 2 dias (D+2).</div>
+                                    <div>O sistema calcula a data de fim automaticamente com base em uma lógica predefinida: testes "Retry" duram 3 dias (D+3), os demais duram 2 dias (D+2).</div>
                                 </li>
                                 <li class="flex gap-3 items-start">
                                     <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
-                                    <div>É gerado um "Cronograma Detalhado" em ecrã, que descreve as ações diárias necessárias e os saldos obrigatórios para cada dia do teste.</div>
+                                    <div>É gerado um "Cronograma Detalhado" na tela, que descreve as ações diárias necessárias e os saldos obrigatórios para cada dia do teste.</div>
                                 </li>
                             </ul>
 
                             <div class="mt-8 bg-gray-50 dark:bg-slate-900/50 p-5 rounded-xl border border-gray-200 dark:border-slate-700">
                                 <strong class="text-gray-900 dark:text-white block mb-2 flex items-center gap-2"><i data-lucide="hard-drive" size="18"></i> Integrações e Gestão:</strong>
                                 <p class="text-gray-700 dark:text-gray-300 text-sm">
-                                    Permite guardar o teste numa tabela local (Agendamentos Ativos). Oferece atalhos para exportar a tabela para Excel (.csv) ou criar um ficheiro de backup (.json), bem como restaurar backups anteriores. Inclui um botão para criar o evento diretamente no Google Calendar com o cronograma na descrição.
+                                    Permite salvar o teste em uma tabela local (Agendamentos Ativos). Oferece atalhos para exportar a tabela para Excel (.csv) ou criar um arquivo de backup (.json), além de restaurar backups anteriores. Inclui um botão para criar o evento diretamente no Google Calendar com o cronograma na descrição.
                                 </p>
                             </div>
                         </div>
@@ -633,19 +715,19 @@ Teste: Pix Retry 1-3
                             </div>
                             <div class="md:col-span-12 space-y-2 mt-2">
                                 <div class="flex justify-between items-center"><label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Análise do QA</label><span class="text-xs text-primary-600 font-bold cursor-not-allowed"><i data-lucide="plus-circle" size="14" class="inline"></i> Texto Raidiam</span></div>
-                                <textarea disabled class="w-full px-4 py-3 bg-gray-100 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl text-sm h-24 resize-none">Boa tarde, o teste foi realizado pelo usuário mas apresentou erro.</textarea>
+                                <textarea disabled class="w-full px-4 py-3 bg-gray-100 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl text-sm h-24 resize-none">Boa tarde, o teste foi realizado pelo usuário, mas apresentou erro.</textarea>
                             </div>
                         </div>
                         <div class="border-t border-gray-200 dark:border-slate-700 bg-gray-50/80 dark:bg-slate-900/30 p-8">
                             <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 block">Preview</label>
                             <div class="relative">
-                                <textarea disabled class="w-full p-4 text-sm font-mono text-gray-600 dark:text-gray-300 bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-700 rounded-xl h-48 resize-none">Prezados, realizamos o teste solicitado, porém apresentou durante a etapa de login do usuário.
+                                <textarea disabled class="w-full p-4 text-sm font-mono text-gray-600 dark:text-gray-300 bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-700 rounded-xl h-48 resize-none">Prezados, realizamos o teste solicitado, porém ele apresentou erro durante a etapa de login do usuário.
 Anexo o log com detalhamento.
 
 Versão do app: 8.5.0
 Número de tentativas: 3
 Plataforma: Android
-Análise do QA: Boa tarde, o teste foi realizado pelo usuário mas apresentou erro.</textarea>
+Análise do QA: Boa tarde, o teste foi realizado pelo usuário, mas apresentou erro.</textarea>
                                 <button class="absolute top-3 right-3 px-4 py-2 bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-300 text-xs font-bold rounded-lg border border-gray-200 dark:border-slate-600 flex items-center gap-2 cursor-not-allowed">
                                     <i data-lucide="copy" size="14"></i> Copiar
                                 </button>
@@ -657,7 +739,7 @@ Análise do QA: Boa tarde, o teste foi realizado pelo usuário mas apresentou er
                         <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 sticky top-24">
                             <strong class="text-gray-900 dark:text-white block mb-2 text-lg">Objetivo:</strong>
                             <p class="text-gray-700 dark:text-gray-300 mb-6 pb-6 border-b border-gray-200 dark:border-slate-700">
-                                Padronizar a comunicação de resultados (erros ou sucessos) para as equipas de desenvolvimento e stakeholders.
+                                Padronizar a comunicação de resultados (erros ou sucessos) para as equipes de desenvolvimento e stakeholders.
                             </p>
                             
                             <strong class="text-gray-900 dark:text-white block mb-4">Como funciona:</strong>
@@ -821,7 +903,7 @@ Análise do QA: Boa tarde, o teste foi realizado pelo usuário mas apresentou er
                             <ul class="space-y-4 text-gray-700 dark:text-gray-300 ml-2">
                                 <li class="flex gap-3 items-start">
                                     <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
-                                    <div><strong>Configuração de Dados:</strong> O utilizador preenche os dados cadastrais que serão injetados nos payloads. É dividido por perfis: Pessoa Física (Nome, CPF, ISPB, Issuer, Conta) e Pessoa Jurídica (Empresa, CNPJ, ISPB PJ, etc.).</div>
+                                    <div><strong>Configuração de Dados:</strong> O usuário preenche os dados cadastrais que serão injetados nos payloads. A configuração é dividida por perfis: Pessoa Física (Nome, CPF, ISPB, Issuer, Conta) e Pessoa Jurídica (Empresa, CNPJ, ISPB PJ, etc.).</div>
                                 </li>
                                 <li class="flex gap-3 items-start">
                                     <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
@@ -829,7 +911,7 @@ Análise do QA: Boa tarde, o teste foi realizado pelo usuário mas apresentou er
                                 </li>
                                 <li class="flex gap-3 items-start">
                                     <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
-                                    <div>Ao clicar em "Gerar JSON", o código processa as regras de negócio: valida documentos (CPF/CNPJ) e constrói o objeto JSON final no ecrã do terminal.</div>
+                                    <div>Ao clicar em "Gerar JSON", o código processa as regras de negócio: valida documentos (CPF/CNPJ) e constrói o objeto JSON final na tela do terminal.</div>
                                 </li>
                                 <li class="flex gap-3 items-start">
                                     <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
@@ -837,7 +919,7 @@ Análise do QA: Boa tarde, o teste foi realizado pelo usuário mas apresentou er
                                 </li>
                                 <li class="flex gap-3 items-start">
                                     <div class="w-1.5 h-1.5 mt-2 rounded-full bg-primary-500 flex-shrink-0"></div>
-                                    <div><strong>Ecossistema:</strong> Possui capacidade de guardar e restaurar ficheiros de sessão (.json) para não perder os dados preenchidos, além de integrar o "Modal de Orientações", que dita as regras de negócio de saldo e setup mobile para o QA antes da execução.</div>
+                                    <div><strong>Ecossistema:</strong> Possui capacidade de salvar e restaurar arquivos de sessão (.json) para não perder os dados preenchidos, além de integrar o "Modal de Orientações", que dita as regras de negócio de saldo e setup mobile para o QA antes da execução.</div>
                                 </li>
                             </ul>
                         </div>
@@ -849,6 +931,187 @@ Análise do QA: Boa tarde, o teste foi realizado pelo usuário mas apresentou er
     </main>
 
     <script>
+        const fvpGuideSlides = [
+            {
+                id: 1,
+                title: "Acesso à FVP",
+                image: "assets/1.png",
+                description: [
+                    "Acesse a FVP pelo link oficial da ferramenta.",
+                    "Em seguida, realize o acesso utilizando o e-mail e a senha cadastrados anteriormente."
+                ]
+            },
+            {
+                id: 2,
+                title: "Validação no Microsoft Authenticator",
+                image: "assets/2.png",
+                description: [
+                    "Valide o código de acesso no dispositivo móvel utilizando o Microsoft Authenticator.",
+                    ]
+            },
+            {
+                id: 3,
+                title: "Login no Open Finance",
+                image: "assets/3.png",
+                description: [
+                    "Após a validação, siga para a tela de login dentro do Open Finance.",
+                    "Clique no botão vermelho em destaque para continuar o fluxo."
+                ]
+            },
+            {
+                id: 4,
+                title: "Autorização de uso dos dados",
+                image: "assets/4.png",
+                description: [
+                    "Aceite a autorização para uso dos dados dentro da ferramenta.",
+                    "Essa etapa permite que a FVP prossiga com a validação necessária para o teste."
+                ]
+            },
+            {
+                id: 5,
+                title: "Aceite dos termos e condições",
+                image: "assets/5.png",
+                description: [
+                    "Faça o scroll da página até o final.",
+                    "Em seguida, marque a opção de aceite e confirme que concorda com os termos e condições."
+                ]
+            },
+            {
+                id: 6,
+                title: "Criação do plano de teste",
+                image: "assets/7.png",
+                description: [
+                    "Após concluir o aceite, siga para a tela de criação de plano de teste.",
+                    "Clique em Create New Test Plan para iniciar a criação de um novo plano."
+                ]
+            },
+            {
+                id: 7,
+                title: "Seleção do plano de teste",
+                image: "assets/6.png",
+                description: [
+                    "Na tela de seleção de plano de teste, selecione o plano correspondente ao teste indicado no SIGc.",
+                    "É importante garantir que o plano selecionado esteja de acordo com a marca e o teste solicitado."
+                ]
+            },
+            {
+                id: 8,
+                title: "Preenchimento dos dados do plano",
+                image: "assets/8.png",
+                description: [
+                    "Realize o preenchimento utilizando o alias e o authorization-server disponíveis no SIGc, de acordo com a marca que será testada.",
+                    "Para facilitar o preenchimento, utilize o menu Gerenciador FVP, onde existe a opção de gerar o JSON de acordo com o teste solicitado."
+                ]
+            },
+            {
+                id: 9,
+                title: "Criação do plano",
+                description: [
+                    "Após preencher todos os dados necessários, clique em Create Test Plan.",
+                    "O usuário será direcionado para a tela de seleção de teste."
+                ]
+            },
+            {
+                id: 10,
+                title: "Execução do teste e coleta de evidências",
+                description: [
+                    "Selecione corretamente o teste que será executado.",
+                    "Em seguida, realize a leitura do QR Code e siga normalmente com o fluxo de teste na marca selecionada.",
+                    "Quando o fluxo retornar para a FVP, a ferramenta executará as validações e gerará o resultado do log como OK ou NOK.",
+                    "Caso o teste apresente resultado NOK, o usuário deve realizar até 2 tentativas adicionais para confirmação."
+                ],
+                checklist: [
+                    "Fazer o download do log;",
+                    "Renomear o log corretamente;",
+                    "Coletar as evidências necessárias;",
+                    "Coletar print da versão do app, de acordo com o dispositivo utilizado;",
+                    "Coletar evidência do saldo em conta;",
+                    "Em caso de erro, coletar evidências do erro apresentado;",
+                    "Caso a marca não permita tirar print diretamente no dispositivo, utilize outro aparelho para registrar as evidências necessárias."
+                ]
+            }
+        ];
+
+        const fvpGuide = {
+            currentIndex: 0,
+
+            render: function() {
+                const slide = fvpGuideSlides[this.currentIndex];
+                const total = fvpGuideSlides.length;
+                const title = document.getElementById('fvp-guide-title');
+                const counter = document.getElementById('fvp-guide-counter');
+                const imagePanel = document.getElementById('fvp-guide-image-panel');
+                const textPanel = document.getElementById('fvp-guide-text-panel');
+                const image = document.getElementById('fvp-guide-image');
+                const description = document.getElementById('fvp-guide-description');
+                const checklist = document.getElementById('fvp-guide-checklist');
+                const dots = document.getElementById('fvp-guide-dots');
+                const prev = document.getElementById('fvp-guide-prev');
+                const next = document.getElementById('fvp-guide-next');
+
+                if (!title || !counter || !imagePanel || !textPanel || !image || !description || !checklist || !dots || !prev || !next) {
+                    return;
+                }
+
+                title.textContent = slide.title;
+                counter.textContent = `Etapa ${slide.id} de ${total}`;
+                if (slide.image) {
+                    imagePanel.classList.remove('hidden');
+                    textPanel.classList.remove('lg:col-span-12');
+                    textPanel.classList.add('lg:col-span-5');
+                    image.src = slide.image;
+                    image.alt = `Etapa ${slide.id}: ${slide.title}`;
+                } else {
+                    imagePanel.classList.add('hidden');
+                    textPanel.classList.remove('lg:col-span-5');
+                    textPanel.classList.add('lg:col-span-12');
+                    image.removeAttribute('src');
+                    image.alt = "";
+                }
+                description.innerHTML = slide.description.map(text => `<p>${text}</p>`).join('');
+                checklist.innerHTML = (slide.checklist || []).map(item => `
+                    <li class="flex gap-3 items-start">
+                        <span class="mt-1 w-5 h-5 rounded-full bg-primary-50 dark:bg-primary-500/10 text-primary-600 dark:text-primary-400 flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="check" size="14"></i>
+                        </span>
+                        <span>${item}</span>
+                    </li>
+                `).join('');
+
+                dots.innerHTML = fvpGuideSlides.map((item, index) => `
+                    <button onclick="fvpGuide.goTo(${index})" class="h-2.5 rounded-full transition-all ${index === this.currentIndex ? 'w-8 bg-primary-600 dark:bg-primary-400' : 'w-2.5 bg-gray-300 dark:bg-slate-600'}" aria-label="Ir para etapa ${item.id}"></button>
+                `).join('');
+
+                prev.disabled = this.currentIndex === 0;
+                next.innerHTML = this.currentIndex === total - 1
+                    ? 'Finalizar <i data-lucide="check" size="18"></i>'
+                    : 'Avançar <i data-lucide="arrow-right" size="18"></i>';
+
+                lucide.createIcons();
+            },
+
+            previous: function() {
+                if (this.currentIndex > 0) {
+                    this.currentIndex -= 1;
+                    this.render();
+                }
+            },
+
+            next: function() {
+                if (this.currentIndex === fvpGuideSlides.length - 1) {
+                    this.currentIndex = 0;
+                } else {
+                    this.currentIndex += 1;
+                }
+                this.render();
+            },
+
+            goTo: function(index) {
+                this.currentIndex = index;
+                this.render();
+            }
+        };
+
         // Lógica de UI da Wiki
         const wiki = {
             showSection: function(sectionId) {
@@ -866,9 +1129,22 @@ Análise do QA: Boa tarde, o teste foi realizado pelo usuário mas apresentou er
                     setTimeout(() => target.classList.add('fade-in'), 10);
                 }
 
+                if (sectionId === 'fvp-guia-preenchimento') {
+                    fvpGuide.render();
+                }
+
+                const gerenciadorSections = [
+                    'ferramentas-intro',
+                    'ferramentas-nomenclatura',
+                    'ferramentas-agendamento',
+                    'ferramentas-relatorio',
+                    'ferramentas-chicago'
+                ];
+                const activeTarget = gerenciadorSections.includes(sectionId) ? 'ferramentas-gerenciador' : sectionId;
+
                 // Atualiza state ativo nos botões
                 document.querySelectorAll('.nav-btn').forEach(btn => {
-                    if (btn.getAttribute('data-target') === sectionId) {
+                    if (btn.getAttribute('data-target') === activeTarget) {
                         // Ativa botão
                         btn.classList.add('text-primary-600', 'dark:text-primary-400', 'font-bold');
                         if(btn.getAttribute('data-target') === 'home') {
