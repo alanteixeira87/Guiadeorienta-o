@@ -82,6 +82,9 @@
             <button onclick="wiki.showSection('testes-intro')" class="nav-btn sidebar__item" data-target="testes-intro" data-search-ids="testes-intro testes-regras-gerais testes-sweeping testes-agendamentos testes-jo-erro testes-jo-mockup">
                 <i data-lucide="check-square" size="18"></i><span>Orientação de testes</span>
             </button>
+            <button onclick="wiki.showSection('orientacao-gravacao-video')" class="nav-btn sidebar__item" data-target="orientacao-gravacao-video" data-search-ids="orientacao-gravacao-video">
+                <i data-lucide="video" size="18"></i><span>Orientação gravação de vídeo</span>
+            </button>
             <div class="sidebar__secao">Ferramentas</div>
             <button onclick="wiki.showSection('fvp-guia-preenchimento')" class="nav-btn sidebar__item" data-target="fvp-guia-preenchimento" data-search-ids="fvp-guia-preenchimento">
                 <i data-lucide="map" size="18"></i><span>FVP - Guia de preenchimento</span>
@@ -516,6 +519,39 @@
                         <span class="block text-xl font-bold text-ink mb-2">Gerador de JSON</span>
                         <span class="block text-sm text-ink-muted leading-relaxed">Geração de payloads com alias e authorization-server para os testes solicitados.</span>
                     </button>
+                </div>
+            </article>
+
+            <article id="orientacao-gravacao-video" class="content-section hidden fade-in max-w-4xl">
+                <div class="flex items-center gap-3 mb-6 text-ink-muted text-sm font-medium">
+                    <i data-lucide="video" size="16"></i> <span class="text-primary-600 dark:text-primary-400">Orientação gravação de vídeo</span>
+                </div>
+
+                <h1 class="text-3xl font-bold tracking-tight text-ink mb-6 border-b border-line pb-4">Orientação: gravação de vídeo</h1>
+
+                <div class="space-y-8 text-ink-soft">
+                    <section>
+                        <h2 class="text-xl font-bold text-ink mb-3">Orientação Geral </h2>
+                        <p class="text-sm leading-relaxed">A gravação de vídeo somente será exigida <strong>quando solicitada pela Contratante</strong>, o que raramente é necessário, e <strong>não será remunerada à parte</strong>.</p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-ink mb-3">O que o vídeo deve conter (nesta ordem)</h2>
+                        <ol class="space-y-3">
+                            <li class="flex gap-3 items-start bg-surface p-4 rounded-xl border border-line"><span class="w-7 h-7 rounded-full bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-100 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span><span class="text-sm leading-relaxed">Exibição da loja de aplicativos correspondente, para comprovação de que o aplicativo testado está atualizado.</span></li>
+                            <li class="flex gap-3 items-start bg-surface p-4 rounded-xl border border-line"><span class="w-7 h-7 rounded-full bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-100 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span><span class="text-sm leading-relaxed">Comprovação de que o aplicativo testado foi completamente encerrado, não sendo suficiente sua mera minimização.</span></li>
+                            <li class="flex gap-3 items-start bg-surface p-4 rounded-xl border border-line"><span class="w-7 h-7 rounded-full bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-100 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span><span class="text-sm leading-relaxed">Comprovação de que o testador se encontra devidamente logado na FVP no momento da execução.</span></li>
+                            <li class="flex gap-3 items-start bg-surface p-4 rounded-xl border border-line"><span class="w-7 h-7 rounded-full bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-100 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span><span class="text-sm leading-relaxed">Abertura da câmera do dispositivo e leitura do QR Code.</span></li>
+                            <li class="flex gap-3 items-start bg-surface p-4 rounded-xl border border-line"><span class="w-7 h-7 rounded-full bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-100 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span><span class="text-sm leading-relaxed">Comprovação do redirecionamento para o aplicativo testado.</span></li>
+                            <li class="flex gap-3 items-start bg-surface p-4 rounded-xl border border-line"><span class="w-7 h-7 rounded-full bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-100 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span><span class="text-sm leading-relaxed">Registro do comportamento observado ou do erro identificado na jornada, quando aplicável.</span></li>
+                            <li class="flex gap-3 items-start bg-surface p-4 rounded-xl border border-line"><span class="w-7 h-7 rounded-full bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-100 text-sm font-bold flex items-center justify-center flex-shrink-0">7</span><span class="text-sm leading-relaxed">Comprovação do retorno à FVP ou, na impossibilidade de retorno automático, do encerramento ou interrupção manual do teste.</span></li>
+                        </ol>
+                    </section>
+
+                    <section class="bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 p-5 rounded-xl">
+                        <h2 class="text-base font-bold text-red-800 dark:text-red-200 mb-2 flex items-center gap-2"><i data-lucide="alert-triangle" size="18"></i> Evidência inválida</h2>
+                        <p class="text-sm leading-relaxed text-red-900 dark:text-red-100">Em ambos os módulos, vídeo incompleto, ilegível, inconsistente, editado indevidamente, fora da sequência exigida ou incompatível com o resultado informado será considerado evidência inválida e poderá caracterizar descumprimento atribuível à Contratada.</p>
+                    </section>
                 </div>
             </article>
 
