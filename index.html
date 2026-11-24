@@ -200,7 +200,12 @@
                         </ul>
                     </section>
 
-                    <div class="bg-yellow-50 dark:bg-yellow-900/30 border-l-4 border-yellow-500 p-6 rounded-r-xl flex gap-4 mt-8">
+                    <div class="mt-8 bg-red-50 dark:bg-red-900/30 border-l-4 border-red-500 p-5 rounded-r-xl">
+                            <h3 class="text-base font-bold text-red-800 dark:text-red-300 mb-2 flex items-center gap-2"><i data-lucide="ban" size="18"></i> Restrição de contas no Sweeping</h3>
+                            <p class="text-sm text-red-800 dark:text-red-200 leading-relaxed">Não é permitido usar a <strong>mesma conta</strong> nas duas pontas: <strong>PF não pode usar a mesma conta PF</strong> como Creditor e Debtor, e <strong>PJ não pode usar a mesma conta PJ</strong> como Creditor e Debtor. As duas contas devem ser de instituições diferentes.</p>
+                        </div>
+
+                    <div class="bg-yellow-50 dark:bg-yellow-900/30 border-l-4 border-yellow-500 p-6 rounded-r-xl flex gap-4 mt-4">
                         <div>
                             <p class="text-yellow-800 dark:text-yellow-300 font-medium">⚠️ <strong>Atenção QA:</strong> A divergência entre a conta configurada e a conta vinculada ao documento (CPF/CNPJ) causará erro imediato na execução. Confirme os dados nas "Configurações de Dados" antes de disparar o teste.</p>
                         </div>
@@ -371,6 +376,10 @@
                                     <p class="text-sm text-ink-muted">Instituição B (diferente da A)</p>
                                 </div>
                             </div>
+                        </div>
+                        <div class="mt-4 bg-red-50 dark:bg-red-900/30 border-l-4 border-red-500 p-5 rounded-r-xl">
+                            <h3 class="text-base font-bold text-red-800 dark:text-red-300 mb-2 flex items-center gap-2"><i data-lucide="ban" size="18"></i> Restrição de contas no Sweeping</h3>
+                            <p class="text-sm text-red-800 dark:text-red-200 leading-relaxed">Não é permitido usar a <strong>mesma conta</strong> nas duas pontas: <strong>PF não pode usar a mesma conta PF</strong> como Creditor e Debtor, e <strong>PJ não pode usar a mesma conta PJ</strong> como Creditor e Debtor. As duas contas devem ser de instituições diferentes.</p>
                         </div>
                         <p class="mt-4 text-sm"><button onclick="wiki.showSection('testes-sweeping')" class="text-primary-600 dark:text-primary-400 font-bold underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-500">Ver orientação do teste de Sweeping Payments</button></p>
                     </section>
